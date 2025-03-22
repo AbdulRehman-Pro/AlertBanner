@@ -21,6 +21,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
+
+      - name: 📀 Cache Gradle Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
       - name: 🔄 Make Gradle executable
         run: chmod +x gradlew
@@ -31,7 +42,7 @@ jobs:
       - name: 🏷️ Generate New Tag (Auto Increment)
         id: tag
         run: |
-          git fetch --tags
+          git fetch --tags --force
           latestTag=$(git tag --sort=-v:refname | head -n 1)
           if [[ -z "$latestTag" ]]; then
             newTag="v1.0.0"
