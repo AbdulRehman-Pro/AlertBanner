@@ -46,4 +46,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Responsive Screens (for testing)
+    implementation(libs.sdp.android)
+    implementation(libs.ssp.android)
 }

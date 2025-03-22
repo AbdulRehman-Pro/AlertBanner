@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AlertBanner">
+
+        <attr name="bannerBackgroundColor" format="color" />
+        <attr name="bannerSurfaceColor" format="color" />
+        <attr name="bannerFontFamily" format="reference" />
+        <attr name="bannerLeadingIcon" format="reference" />
+        <attr name="bannerTrailingIcon" format="reference" />
+
+
+        <attr name="bannerAnimate" format="enum">
+            <enum name="top_to_bottom" value="0" />
+            <enum name="bottom_to_top" value="1" />
+        </attr>
+
+        <attr name="bannerTextSize" format="dimension" />
+        <attr name="bannerIconSize" format="dimension" />
+
+    </declare-styleable>
+
+</resources>
