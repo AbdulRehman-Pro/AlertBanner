@@ -1,0 +1,56 @@
+name: Android Library Publish to JitPack
+
+on:
+  push:
+    branches:
+      - main  # Run this when pushing to 'main' branch
+  pull_request:
+    branches:
+      - main  # Run this on PR merge into 'main'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ☕ Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🔄 Make Gradle executable
+        run: chmod +x gradlew
+
+      - name: 🚀 Build Android Library
+        run: ./gradlew clean build
+
+      - name: 🏷️ Generate New Tag (Auto Increment)
+        id: tag
+        run: |
+          git fetch --tags
+          latestTag=$(git tag --sort=-v:refname | head -n 1)
+          if [[ -z "$latestTag" ]]; then
+            newTag="v1.0.0"
+          else
+            major=$(echo $latestTag | cut -d. -f1 | tr -d 'v')
+            minor=$(echo $latestTag | cut -d. -f2)
+            patch=$(echo $latestTag | cut -d. -f3)
+            newTag="v$major.$minor.$((patch + 1))"
+          fi
+          echo "NEW_TAG=$newTag" >> $GITHUB_ENV
+          echo "New tag: $newTag"
+
+      - name: 🏷️ Push New Tag
+        run: |
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ✅ Notify JitPack
+        run: |
+          echo "JitPack will automatically build the new tag: $NEW_TAG"
