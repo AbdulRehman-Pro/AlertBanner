@@ -1,0 +1,30 @@
+name: Update README with Latest JitPack Version
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers only when a version tag (e.g., v1.0.0) is pushed
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Get Latest JitPack Version
+        run: |
+          LATEST_VERSION=$(curl -s "https://jitpack.io/api/builds/com.github.AbdulRehman-Pro/AlertBanner" | jq -r '.[-1].version')
+          echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
+
+      - name: Update README.md
+        run: |
+          sed -i "s/{{LATEST_VERSION}}/${{ env.LATEST_VERSION }}/g" README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🔄 Updated README with latest JitPack version: ${{ env.LATEST_VERSION }}" || exit 0
+          git push
