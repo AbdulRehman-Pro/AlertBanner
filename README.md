@@ -13,6 +13,7 @@
 
 A customizable Android banner component for displaying alerts with smooth animations.
 
+
 ## 📦 Installation
 
 ### Step 1: Add JitPack repository to your project
@@ -206,6 +207,12 @@ The `bannerAnimate` attribute allows controlling how the banner appears and disa
 ## 🏆 License
 
 This library is open-source under the MIT License.
+
+---
+
+<div style="background-color: #ffcc00; color: #000; padding: 10px; border-left: 5px solid #ff4500;">
+  <strong>⚠️ Important:</strong> This project is maintained by <b>Only Me</b>. Direct pushes to <code>main</code> are restricted. Please create a branch and submit a PR for any changes.
+</div>
 
 ---
 
