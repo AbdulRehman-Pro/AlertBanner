@@ -55,6 +55,19 @@ jobs:
           echo "NEW_TAG=$newTag" >> $GITHUB_ENV
           echo "New tag: $newTag"
 
+      - name: 📝 Update README with Latest Version
+        run: |
+          sed -i "s/{{LATEST_VERSION}}/$NEW_TAG/g" README.md
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🔄 Updated README with latest JitPack version: $NEW_TAG" || exit 0
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+
       - name: 🏷️ Push New Tag
         run: |
           git tag $NEW_TAG
