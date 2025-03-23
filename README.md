@@ -34,7 +34,7 @@ dependencyResolutionManagement {
 ```kotlin
 dependencies {
     implementation("com.github.AbdulRehman-Pro:AlertBanner:Tag")
-    implementation("com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}")
+    implementation("com.github.AbdulRehman-Pro:AlertBanner:v1.0.4")
 }
 ```
 
