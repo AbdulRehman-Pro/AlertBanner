@@ -33,8 +33,7 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    implementation("com.github.AbdulRehman-Pro:AlertBanner:Tag")
-    implementation("com.github.AbdulRehman-Pro:AlertBanner:v1.0.4")
+    implementation("com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}")
 }
 ```
 
@@ -63,6 +62,7 @@ You can customize the `AlertBanner` using XML attributes:
 
 ```xml
 <com.rehman.view.AlertBanner
+    android:id="@+id/alertBanner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:bannerBackgroundColor="@color/red"
@@ -73,6 +73,20 @@ You can customize the `AlertBanner` using XML attributes:
     app:bannerAnimate="bottom-to-top"
     app:bannerTextSize="16sp"
     app:bannerIconsSize="24dp" />
+```
+
+### 2️⃣ Show Banner Programmatically
+
+```kotlin
+val alertBanner = findViewById<AlertBanner>(R.id.alertBanner)
+alertBanner.showBanner("This is a warning!", AlertBanner.LENGTH_LONG) {
+    Log.d("AlertBanner", "Banner dismissed!")
+}
+```
+
+### 3️⃣ Hide Banner Programmatically
+```kotlin
+alertBanner.hideBanner()
 ```
 
 ---
