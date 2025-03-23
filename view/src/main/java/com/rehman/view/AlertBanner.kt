@@ -25,6 +25,16 @@ class AlertBanner @JvmOverloads constructor(
         const val LENGTH_LONG = 1
         const val LENGTH_INDEFINITE = -1
 
+        /**
+         * Hides the error banner using animation.
+         */
+        fun hideBanner(alertBanner: AlertBanner) {
+            alertBanner.onDismissCallback?.invoke()
+            alertBanner.onDismissCallback = null
+            alertBanner.cancelAutoDismiss()
+            alertBanner.slideOut()
+        }
+
     }
 
 
@@ -146,23 +156,13 @@ class AlertBanner @JvmOverloads constructor(
         trailingIcon.visibility = if (duration == LENGTH_INDEFINITE) View.VISIBLE else View.GONE
 
         trailingIcon.setOnClickListener {
-            if (trailingIcon.visibility == VISIBLE) hideBanner()
+            if (trailingIcon.visibility == VISIBLE) Companion.hideBanner(this)
 
         }
 
         slideIn()
         scheduleAutoDismiss(duration)
 
-    }
-
-    /**
-     * Hides the error banner using animation.
-     */
-    private fun hideBanner() {
-        onDismissCallback?.invoke()
-        onDismissCallback = null
-        cancelAutoDismiss()
-        slideOut()
     }
 
 
@@ -219,7 +219,7 @@ class AlertBanner @JvmOverloads constructor(
         cancelAutoDismiss()
         if (duration == LENGTH_INDEFINITE) return
         val delay = if (duration == LENGTH_SHORT) 3000L else 5000L
-        dismissRunnable = Runnable { hideBanner() }
+        dismissRunnable = Runnable { Companion.hideBanner(this) }
         dismissHandler.postDelayed(dismissRunnable!!, delay)
     }
 
