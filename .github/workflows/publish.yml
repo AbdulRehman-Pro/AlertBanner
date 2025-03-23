@@ -55,6 +55,11 @@ jobs:
           echo "NEW_TAG=$newTag" >> $GITHUB_ENV
           echo "New tag: $newTag"
 
+      - name: 🔄 Restore Placeholder in README
+        run: |
+          sed -i 's/com.github.AbdulRehman-Pro:AlertBanner:v[0-9]*\.[0-9]*\.[0-9]*/com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}/' README.md
+          
+
       - name: 📝 Update README with Latest Version
         run: |
           sed -i "s/{{LATEST_VERSION}}/$NEW_TAG/g" README.md
