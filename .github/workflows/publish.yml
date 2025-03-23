@@ -36,6 +36,18 @@ jobs:
       - name: 🔄 Make Gradle executable
         run: chmod +x gradlew
 
+      - name: 📝 Update build.gradle.kts with Latest Version
+        run: |
+          sed -i "s/version = \"[0-9]*\.[0-9]*\.[0-9]*\"/version = \"$NEW_TAG\"/" build.gradle.kts
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add build.gradle.kts
+          git commit -m "🔄 Updated build.gradle.kts with latest version: $NEW_TAG" || exit 0
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
       - name: 🚀 Build Android Library
         run: ./gradlew clean build
 
@@ -54,16 +66,18 @@ jobs:
           fi
           echo "NEW_TAG=$newTag" >> $GITHUB_ENV
           echo "New tag: $newTag"
+          
 
       - name: 🔄 Restore Placeholder in README
         run: |
           sed -i 's/com.github.AbdulRehman-Pro:AlertBanner:v[0-9]*\.[0-9]*\.[0-9]*/com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}/' README.md
-          
 
       - name: 📝 Update README with Latest Version
         run: |
           sed -i "s/{{LATEST_VERSION}}/$NEW_TAG/g" README.md
-          
+
+      - name: 🔄 Commit Updated README
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
@@ -71,7 +85,6 @@ jobs:
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
 
       - name: 🏷️ Push New Tag
         run: |
