@@ -77,4 +77,6 @@ jobs:
 
       - name: ✅ Notify JitPack
         run: |
+          curl -X GET "https://jitpack.io/com/github/AbdulRehman-Pro/AlertBanner/${NEW_TAG}/build.log"
           echo "JitPack will automatically build the new tag: $NEW_TAG"
+
