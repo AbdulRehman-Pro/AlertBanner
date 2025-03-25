@@ -1,92 +1,92 @@
-name: Android Library Publish to JitPack
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'view/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'view/**'
-
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🛠️ Checkout repository
-        uses: actions/checkout@v4
-
-      - name: ☕ Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
-      - name: 📀 Cache Gradle Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
-
-      - name: 🔄 Make Gradle executable
-        run: chmod +x gradlew
-
-      - name: 🚀 Build Android Library
-        run: ./gradlew clean build
-
-      - name: 🏷️ Generate New Tag (Auto Increment)
-        id: tag
-        run: |
-          git fetch --tags --force
-          latestTag=$(git tag --sort=-v:refname | head -n 1)
-          if [[ -z "$latestTag" ]]; then
-            newTag="v1.0.0"
-          else
-            major=$(echo $latestTag | cut -d. -f1 | tr -d 'v')
-            minor=$(echo $latestTag | cut -d. -f2)
-            patch=$(echo $latestTag | cut -d. -f3)
-            newTag="v$major.$minor.$((patch + 1))"
-          fi
-          echo "NEW_TAG=$newTag" >> $GITHUB_ENV
-          echo "New tag: $newTag"
-
-
-      - name: 🔄 Restore Placeholder in README
-        run: |
-          sed -i 's/com.github.AbdulRehman-Pro:AlertBanner:v[0-9]*\.[0-9]*\.[0-9]*/com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}/' README.md
-
-      - name: 📝 Update README with Latest Version
-        run: |
-          sed -i "s/{{LATEST_VERSION}}/$NEW_TAG/g" README.md
-
-      - name: 🔄 Commit Updated README
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "🔄 Updated README with latest JitPack version: $NEW_TAG" || exit 0
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: 🏷️ Push New Tag
-        run: |
-          git tag $NEW_TAG
-          git push origin $NEW_TAG
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: ✅ Notify JitPack
-        run: |
-          curl -X GET "https://jitpack.io/com/github/AbdulRehman-Pro/AlertBanner/${NEW_TAG}/build.log"
-          echo "JitPack will automatically build the new tag: $NEW_TAG"
-
+#name: Android Library Publish to JitPack
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#    paths:
+#      - 'view/**'
+#  pull_request:
+#    branches:
+#      - main
+#    paths:
+#      - 'view/**'
+#
+#jobs:
+#  publish:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: 🛠️ Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: ☕ Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#          cache: 'gradle'
+#
+#      - name: 📀 Cache Gradle Dependencies
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            ~/.gradle/caches
+#            ~/.gradle/wrapper
+#          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#          restore-keys: |
+#            gradle-${{ runner.os }}-
+#
+#      - name: 🔄 Make Gradle executable
+#        run: chmod +x gradlew
+#
+#      - name: 🚀 Build Android Library
+#        run: ./gradlew clean build
+#
+#      - name: 🏷️ Generate New Tag (Auto Increment)
+#        id: tag
+#        run: |
+#          git fetch --tags --force
+#          latestTag=$(git tag --sort=-v:refname | head -n 1)
+#          if [[ -z "$latestTag" ]]; then
+#            newTag="v1.0.0"
+#          else
+#            major=$(echo $latestTag | cut -d. -f1 | tr -d 'v')
+#            minor=$(echo $latestTag | cut -d. -f2)
+#            patch=$(echo $latestTag | cut -d. -f3)
+#            newTag="v$major.$minor.$((patch + 1))"
+#          fi
+#          echo "NEW_TAG=$newTag" >> $GITHUB_ENV
+#          echo "New tag: $newTag"
+#
+#
+#      - name: 🔄 Restore Placeholder in README
+#        run: |
+#          sed -i 's/com.github.AbdulRehman-Pro:AlertBanner:v[0-9]*\.[0-9]*\.[0-9]*/com.github.AbdulRehman-Pro:AlertBanner:{{LATEST_VERSION}}/' README.md
+#
+#      - name: 📝 Update README with Latest Version
+#        run: |
+#          sed -i "s/{{LATEST_VERSION}}/$NEW_TAG/g" README.md
+#
+#      - name: 🔄 Commit Updated README
+#        run: |
+#          git config --global user.name "github-actions[bot]"
+#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#          git add README.md
+#          git commit -m "🔄 Updated README with latest JitPack version: $NEW_TAG" || exit 0
+#          git push origin main
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+#
+#      - name: 🏷️ Push New Tag
+#        run: |
+#          git tag $NEW_TAG
+#          git push origin $NEW_TAG
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+#
+#      - name: ✅ Notify JitPack
+#        run: |
+#          curl -X GET "https://jitpack.io/com/github/AbdulRehman-Pro/AlertBanner/${NEW_TAG}/build.log"
+#          echo "JitPack will automatically build the new tag: $NEW_TAG"
+#
