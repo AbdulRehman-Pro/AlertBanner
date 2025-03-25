@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -79,7 +80,6 @@ class AlertBanner @JvmOverloads constructor(
                     getColor(R.styleable.AlertBanner_bannerBackgroundColor, defaultBackgroundColor)
                 val surfaceColorAttr =
                     getColor(R.styleable.AlertBanner_bannerSurfaceColor, defaultSurfaceColor)
-                val fontFamilyAttr = getResourceId(R.styleable.AlertBanner_bannerFontFamily, -1)
 
                 val leadingIconAttr =
                     getResourceId(R.styleable.AlertBanner_bannerLeadingIcon, R.drawable.ic_leading)
@@ -128,9 +128,16 @@ class AlertBanner @JvmOverloads constructor(
                 }
 
 
-                if (fontFamilyAttr != -1) {
-                    alertMessage.typeface = ResourcesCompat.getFont(context, fontFamilyAttr)
+                val fontFamilyAttr = getResourceId(R.styleable.AlertBanner_bannerFontFamily, 0)
+
+                if (fontFamilyAttr != 0) {
+                    try {
+                        alertMessage.typeface = ResourcesCompat.getFont(context, fontFamilyAttr)
+                    } catch (e: Exception) {
+                        Log.e("AlertBanner", "Error loading font", e)
+                    }
                 }
+
 
             } finally {
                 recycle()

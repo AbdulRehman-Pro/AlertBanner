@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         app:bannerAnimate="top_to_bottom"
         app:bannerBackgroundColor="#FFEBEE"
-        app:bannerFontFamily="@font/montserrat_bold"
         app:bannerIconSize="@dimen/_12sdp"
         app:bannerSurfaceColor="#F44336"
         app:bannerTextSize="@dimen/_8ssp" />
@@ -27,7 +26,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#E4E4E4"
-        android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bannerAnimate="bottom_to_top"
-        app:bannerFontFamily="@font/montserrat_bold"
         app:bannerIconSize="@dimen/_12sdp"
         app:bannerTextSize="@dimen/_6ssp" />
 
