@@ -42,23 +42,6 @@ dependencies {
 
 ---
 
-## 🎨 Custom Attributes
-
-You can customize the `AlertBanner` using XML attributes:
-
-| Attribute Name         | Description                                      | Type      | Default |
-|------------------------|--------------------------------------------------|-----------|---------|
-| `bannerBackgroundColor` | Sets the background color of the banner        | `color`   | `FFF44336` |
-| `bannerSurfaceColor`    | Sets the text and icon color                    | `color`   | `#FFFFFFFF` |
-| `bannerFontFamily`      | Sets the custom font for the text               | `reference` | Default system font |
-| `bannerLeadingIcon`     | Sets the icon on the left side                  | `reference` | Default leading icon |
-| `bannerTrailingIcon`    | Sets the close icon on the right side           | `reference` | Default trailing icon |
-| `bannerAnimate`         | Controls animation type (`top-to-bottom` or `bottom-to-top`) | `enum` | `top-to-bottom` |
-| `bannerTextSize`        | Sets the text size in `sp`                      | `dimension` | `12sp` |
-| `bannerIconsSize`       | Sets the icon size in `dp`                      | `dimension` | `16dp` |
-
----
-
 ## 🛠 Usage
 
 ### 1️⃣ Add in XML
@@ -194,6 +177,23 @@ alertBanner.showBanner(
 ---
 
 🚀 This feature makes **AlertBanner** flexible and customizable! If you don’t need additional actions, just skip the `onDismiss` parameter, and the banner will close without extra logic. 🔥
+
+---
+
+## 🎨 Custom Attributes
+
+You can customize the `AlertBanner` using XML attributes:
+
+| Attribute Name         | Description                                      | Type      | Default |
+|------------------------|--------------------------------------------------|-----------|---------|
+| `bannerBackgroundColor` | Sets the background color of the banner        | `color`   | `FFF44336` |
+| `bannerSurfaceColor`    | Sets the text and icon color                    | `color`   | `#FFFFFFFF` |
+| `bannerFontFamily`      | Sets the custom font for the text               | `reference` | Default system font |
+| `bannerLeadingIcon`     | Sets the icon on the left side                  | `reference` | Default leading icon |
+| `bannerTrailingIcon`    | Sets the close icon on the right side           | `reference` | Default trailing icon |
+| `bannerAnimate`         | Controls animation type (`top-to-bottom` or `bottom-to-top`) | `enum` | `top-to-bottom` |
+| `bannerTextSize`        | Sets the text size in `sp`                      | `dimension` | `12sp` |
+| `bannerIconsSize`       | Sets the icon size in `dp`                      | `dimension` | `16dp` |
 
 ---
 
