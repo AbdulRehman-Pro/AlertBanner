@@ -164,7 +164,7 @@ class AlertBanner @JvmOverloads constructor(
     /**
      * Hides the error banner using animation.
      */
-    private fun hideBanner() {
+    fun hideBanner() {
         onDismissCallback?.invoke()
         onDismissCallback = null
         cancelAutoDismiss()

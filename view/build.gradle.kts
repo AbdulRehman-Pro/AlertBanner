@@ -51,7 +51,6 @@ afterEvaluate {
 
                 groupId = "com.github.AbdulRehman-Pro"
                 artifactId = "AlertBanner"
-                version = "1.0.0" // Update for new versions
 
 
                 pom {
