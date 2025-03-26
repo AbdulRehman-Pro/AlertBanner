@@ -56,9 +56,9 @@ dependencies {
     app:bannerFontFamily="@font/custom_font"
     app:bannerLeadingIcon="@drawable/ic_warning"
     app:bannerTrailingIcon="@drawable/ic_close"
-    app:bannerAnimate="bottom-to-top"
+    app:bannerAnimate="top_to_bottom"
     app:bannerTextSize="16sp"
-    app:bannerIconsSize="24dp" />
+    app:bannerIconSize="24dp" />
 ```
 
 ### 2️⃣ Show Banner Programmatically
@@ -184,16 +184,16 @@ alertBanner.showBanner(
 
 You can customize the `AlertBanner` using XML attributes:
 
-| Attribute Name         | Description                                      | Type      | Default |
-|------------------------|--------------------------------------------------|-----------|---------|
-| `bannerBackgroundColor` | Sets the background color of the banner        | `color`   | `FFF44336` |
-| `bannerSurfaceColor`    | Sets the text and icon color                    | `color`   | `#FFFFFFFF` |
-| `bannerFontFamily`      | Sets the custom font for the text               | `reference` | Default system font |
-| `bannerLeadingIcon`     | Sets the icon on the left side                  | `reference` | Default leading icon |
-| `bannerTrailingIcon`    | Sets the close icon on the right side           | `reference` | Default trailing icon |
-| `bannerAnimate`         | Controls animation type (`top-to-bottom` or `bottom-to-top`) | `enum` | `top-to-bottom` |
-| `bannerTextSize`        | Sets the text size in `sp`                      | `dimension` | `12sp` |
-| `bannerIconsSize`       | Sets the icon size in `dp`                      | `dimension` | `16dp` |
+| Attribute Name         | Description                                                  | Type      | Default               |
+|------------------------|--------------------------------------------------------------|-----------|-----------------------|
+| `bannerBackgroundColor` | Sets the background color of the banner                      | `color`   | `FFF44336`            |
+| `bannerSurfaceColor`   | Sets the text and icon color                                 | `color`   | `#FFFFFFFF`           |
+| `bannerFontFamily`     | Sets the custom font for the text                            | `reference` | Default system font   |
+| `bannerLeadingIcon`    | Sets the icon on the left side                               | `reference` | Default leading icon  |
+| `bannerTrailingIcon`   | Sets the close icon on the right side                        | `reference` | Default trailing icon |
+| `bannerAnimate`        | Controls animation type (`top_to_bottom` or `bottom_to_top`) | `enum` | `top_to_bottom`       |
+| `bannerTextSize`       | Sets the text size in `sp`                                   | `dimension` | `12sp`                |
+| `bannerIconSize`       | Sets the icon size in `dp`                                   | `dimension` | `16dp`                |
 
 ---
 
@@ -201,8 +201,8 @@ You can customize the `AlertBanner` using XML attributes:
 
 The `bannerAnimate` attribute allows controlling how the banner appears and disappears:
 
-- `top-to-bottom` (default) ➡️ Slides in from the top and exits towards the top.
-- `bottom-to-top` ⬆️ Slides in from the bottom and exits towards the bottom.
+- `top_to_bottom` (default) ➡️ Slides in from the top and exits towards the top.
+- `bottom_to_top` ⬆️ Slides in from the bottom and exits towards the bottom.
 
 ---
 
