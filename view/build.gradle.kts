@@ -47,16 +47,11 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-
                 from(components["release"])
 
                 groupId = "com.github.AbdulRehman-Pro"
                 artifactId = "AlertBanner"
                 version = "1.0.0" // Update for new versions
-
-                artifact("$buildDir/outputs/aar/view-release.aar") {
-                    builtBy(tasks.named("assembleRelease"))
-                }
 
 
                 pom {
