@@ -54,7 +54,7 @@ afterEvaluate {
                 artifactId = "AlertBanner"
                 version = "1.0.0" // Update for new versions
 
-                artifact("${layout.buildDirectory}/outputs/aar/view-release.aar") {
+                artifact("$buildDir/outputs/aar/view-release.aar") {
                     builtBy(tasks.named("assembleRelease"))
                 }
 
