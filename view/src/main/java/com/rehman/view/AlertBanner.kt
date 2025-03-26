@@ -22,20 +22,11 @@ class AlertBanner @JvmOverloads constructor(
 
 
     companion object {
+        private const val TAG = "AlertBanner"
+
         const val LENGTH_SHORT = 0
         const val LENGTH_LONG = 1
         const val LENGTH_INDEFINITE = -1
-
-        /**
-         * Hides the error banner using animation.
-         */
-        fun hideBanner(alertBanner: AlertBanner) {
-            alertBanner.onDismissCallback?.invoke()
-            alertBanner.onDismissCallback = null
-            alertBanner.cancelAutoDismiss()
-            alertBanner.slideOut()
-        }
-
     }
 
 
@@ -44,7 +35,7 @@ class AlertBanner @JvmOverloads constructor(
     annotation class Duration
 
 
-    private var animationType: Int = 0 // Default animation direction
+    private var animationType: Int = 0
 
 
     private val alertMessage: TextView
@@ -56,7 +47,6 @@ class AlertBanner @JvmOverloads constructor(
 
 
     init {
-        // Inflate the banner layout from XML (error_banner.xml)
         inflate(context, R.layout.alert_banner, this)
         orientation = HORIZONTAL
         visibility = GONE
@@ -67,7 +57,6 @@ class AlertBanner @JvmOverloads constructor(
         trailingIcon = findViewById(R.id.ivTrailingIcon)
 
 
-        // Retrieve custom attributes
         context.theme.obtainStyledAttributes(attrs, R.styleable.AlertBanner, 0, 0).apply {
             try {
 
@@ -94,11 +83,11 @@ class AlertBanner @JvmOverloads constructor(
 
                 val defaultTextSize = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics
-                ) // Default 12sp
+                )
 
                 val defaultIconSize = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
-                ) // Default 16dp
+                )
 
                 val textSizeAttr =
                     getDimension(R.styleable.AlertBanner_bannerTextSize, defaultTextSize)
@@ -134,7 +123,7 @@ class AlertBanner @JvmOverloads constructor(
                     try {
                         alertMessage.typeface = ResourcesCompat.getFont(context, fontFamilyAttr)
                     } catch (e: Exception) {
-                        Log.e("AlertBanner", "Error loading font", e)
+                        Log.e(TAG, "Error loading font", e)
                     }
                 }
 
@@ -155,7 +144,7 @@ class AlertBanner @JvmOverloads constructor(
      */
     fun showBanner(
         alertMessage: String,
-        @Duration duration: Int = LENGTH_SHORT, // Enforce only allowed values
+        @Duration duration: Int = LENGTH_SHORT,
         onDismiss: (() -> Unit)? = null,
     ) {
         this.alertMessage.text = alertMessage
@@ -163,7 +152,7 @@ class AlertBanner @JvmOverloads constructor(
         trailingIcon.visibility = if (duration == LENGTH_INDEFINITE) View.VISIBLE else View.GONE
 
         trailingIcon.setOnClickListener {
-            if (trailingIcon.visibility == VISIBLE) Companion.hideBanner(this)
+            if (trailingIcon.visibility == VISIBLE) hideBanner()
 
         }
 
@@ -172,10 +161,20 @@ class AlertBanner @JvmOverloads constructor(
 
     }
 
+    /**
+     * Hides the error banner using animation.
+     */
+    private fun hideBanner() {
+        onDismissCallback?.invoke()
+        onDismissCallback = null
+        cancelAutoDismiss()
+        slideOut()
+    }
+
 
     private fun slideIn() {
         post {
-            measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED) // Ensure measurement
+            measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
 
             when (animationType) {
                 0 -> {
@@ -191,10 +190,10 @@ class AlertBanner @JvmOverloads constructor(
             visibility = View.VISIBLE
 
             animate()
-                .translationY(0f) // Slide to normal position
+                .translationY(0f)
                 .alpha(1f)
                 .setDuration(300)
-                .setInterpolator(AccelerateDecelerateInterpolator()) // Smooth animation
+                .setInterpolator(AccelerateDecelerateInterpolator())
                 .start()
 
         }
@@ -212,9 +211,9 @@ class AlertBanner @JvmOverloads constructor(
             .translationY(targetTranslationY)
             .alpha(0f)
             .setDuration(300)
-            .setInterpolator(AccelerateDecelerateInterpolator()) // Smooth exit
+            .setInterpolator(AccelerateDecelerateInterpolator())
             .withEndAction {
-                visibility = View.GONE // Hide after animation
+                visibility = View.GONE
 
             }
             .start()
@@ -226,7 +225,7 @@ class AlertBanner @JvmOverloads constructor(
         cancelAutoDismiss()
         if (duration == LENGTH_INDEFINITE) return
         val delay = if (duration == LENGTH_SHORT) 3000L else 5000L
-        dismissRunnable = Runnable { Companion.hideBanner(this) }
+        dismissRunnable = Runnable { hideBanner() }
         dismissHandler.postDelayed(dismissRunnable!!, delay)
     }
 
@@ -239,7 +238,7 @@ class AlertBanner @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        cancelAutoDismiss() // Ensure runnable is removed
+        cancelAutoDismiss()
     }
 
 }
