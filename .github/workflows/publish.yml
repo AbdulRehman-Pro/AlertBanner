@@ -40,8 +40,8 @@ jobs:
       - name: 🔄 Make Gradle executable
         run: chmod +x gradlew
 
-      - name: 🚀 Build Android Library
-        run: ./gradlew clean build
+      - name: 🚀 Build and Publish AAR
+        run: ./gradlew clean assembleRelease publish
 
       - name: 🏷️ Generate New Tag (Auto Increment)
         id: tag
