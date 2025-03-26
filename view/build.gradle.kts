@@ -43,43 +43,48 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 }
 
-afterEvaluate{
+afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
 
-                    from(components["release"])
+                from(components["release"])
 
-                    groupId = "com.github.AbdulRehman-Pro"
-                    artifactId = "AlertBanner"
-                    version = "1.0.0" // Update for new versions
+                groupId = "com.github.AbdulRehman-Pro"
+                artifactId = "AlertBanner"
+                version = "1.0.0" // Update for new versions
 
-                    pom {
-                        name.set("AlertBanner")
-                        description.set("An Android library for showing alert banners easily.")
-                        url.set("https://github.com/AbdulRehman-Pro/AlertBanner")
+                artifact("${layout.buildDirectory}/outputs/aar/view-release.aar") {
+                    builtBy(tasks.named("assembleRelease"))
+                }
 
-                        licenses {
-                            license {
-                                name.set("MIT License")
-                                url.set("https://opensource.org/licenses/MIT")
-                            }
-                        }
 
-                        developers {
-                            developer {
-                                id.set("AbdulRehman-Pro")
-                                name.set("Abdul Rehman")
-                                email.set("rehmankhan8360@gmail.com")
-                            }
-                        }
+                pom {
+                    name.set("AlertBanner")
+                    description.set("An Android library for showing alert banners easily.")
+                    url.set("https://github.com/AbdulRehman-Pro/AlertBanner")
 
-                        scm {
-                            connection.set("scm:git:github.com/AbdulRehman-Pro/AlertBanner.git")
-                            developerConnection.set("scm:git:ssh://github.com/AbdulRehman-Pro/AlertBanner.git")
-                            url.set("https://github.com/AbdulRehman-Pro/AlertBanner")
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://opensource.org/licenses/MIT")
                         }
                     }
+
+                    developers {
+                        developer {
+                            id.set("AbdulRehman-Pro")
+                            name.set("Abdul Rehman")
+                            email.set("rehmankhan8360@gmail.com")
+                        }
+                    }
+
+                    scm {
+                        connection.set("scm:git:github.com/AbdulRehman-Pro/AlertBanner.git")
+                        developerConnection.set("scm:git:ssh://github.com/AbdulRehman-Pro/AlertBanner.git")
+                        url.set("https://github.com/AbdulRehman-Pro/AlertBanner")
+                    }
+                }
 
             }
         }
