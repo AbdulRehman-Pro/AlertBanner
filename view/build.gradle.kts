@@ -50,10 +50,10 @@ afterEvaluate{
             create<MavenPublication>("release") {
 
                     from(components["release"])
-//
-//                    groupId = "com.github.AbdulRehman-Pro"
-//                    artifactId = "view"
-//                    version = "1.0.0" // Update for new versions
+
+                    groupId = "com.github.AbdulRehman-Pro"
+                    artifactId = "AlertBanner"
+                    version = "1.0.0" // Update for new versions
 
                     pom {
                         name.set("AlertBanner")
