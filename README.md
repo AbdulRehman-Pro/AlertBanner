@@ -13,7 +13,7 @@
 
 A customizable Android banner component for displaying alerts with smooth animations.
 
-![Ui](<https://media-hosting.imagekit.io//dec140dac9904307/Group%203%20(2).png?Expires=1837584113&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=gS~UdMd79isddPxqkWZoIVVlu9uwPVz0Uq5xFOkxBMWQV04l8f1kanANFN9EWC3hOvDBWvbZ2QXgKw9LkG98MCNctwBoPsUGysLrkZ0qXF6KTuTq28irK954kjwmnquDbKsLSdQpSugvwax9ZveJz2VoARVTc8Kc0Z4r1j2M0-6zCPwlM3ujsbSD1~LBLWuBA-83I-vPsKKFgj3~FUJjrct1kp-WKlocNmn9G9oozB7Ukxz94GOldfRN6OSxAn~3218efWR71urcZy165wxQPMdfKynkB6naq3DXxq2TefHIZ9GEFghE-qGbS2fX4pGUHRl7b0GqeKb2V1OZroLSnA__>)
+![Ui](https://iili.io/KJlLjn9.png)
 
 
 ## 📦 Installation
